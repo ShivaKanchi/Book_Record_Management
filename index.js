@@ -5,7 +5,11 @@ const port = 8081;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.status(200).json({
+    res.status(404).json({
         message: 'server is up'
-    })
+    });
 });
+
+app.listen(port, () => {
+    console.log(`Server started at port ${port}`);
+})
