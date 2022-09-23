@@ -1,0 +1,26 @@
+{
+  "name": "book_record_management",
+  "version": "1.0.0",
+  "description": "Book record with node js and express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShivaKanchi/Book_Record_Management.git"
+  },
+  "author": "Shiva Kanchi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShivaKanchi/Book_Record_Management/issues"
+  },
+  "homepage": "https://github.com/ShivaKanchi/Book_Record_Management#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
