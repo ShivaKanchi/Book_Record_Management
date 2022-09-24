@@ -28,3 +28,9 @@ app.get("*", (req, res) => {
  * Parameters: None
  */
 
+app.get("/users", (req, res) => {
+    res.status(200).json({
+        success: true,
+        data: users
+    });
+});
