@@ -98,22 +98,15 @@ app.put("/users/:id", (req, res) => {
     const updateuser = users.map((each) => {
         if (each.id === id) {
             return {
-
-            }
+                ...each,
+                ...body
+            };
         }
         return each;
-    })
-    users.push({
-        id,
-        name,
-        surname,
-        email,
-        subscriptionType,
-        subscriptionDate
-    })
-    return res.status(201).json({
+    });
+    return res.status(20).json({
         success: true,
-        data: users
+        data: updateuser
     });
 });
 
