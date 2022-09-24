@@ -87,7 +87,7 @@ app.post("/users", (req, res) => {
  */
 app.put("/users/:id", (req, res) => {
     const { id } = req.params;
-    const { body } = req.params;
+    const { data } = req.body;
     const user = users.find((each) => each.id === id);
     if (!user) {
         return res.status(404).json({
@@ -97,14 +97,15 @@ app.put("/users/:id", (req, res) => {
     }
     const updateuser = users.map((each) => {
         if (each.id === id) {
+            console.log("updTWA");
             return {
                 ...each,
-                ...body
+                ...data
             };
         }
         return each;
     });
-    return res.status(20).json({
+    return res.status(200).json({
         success: true,
         data: updateuser
     });
