@@ -13,12 +13,10 @@ app.get("*", (req, res) => {
     res.status(404).json({
         message: 'This method is not implemented'
     });
+    app.listen(port, () => {
+        console.log(`Server started at port ${port}`);
+    });
+
 });
-
-app.listen(port, () => {
-    console.log(`Server started at port ${port}`);
-})
-
-
 
 //http://localhost:8081
