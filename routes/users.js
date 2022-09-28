@@ -1,4 +1,4 @@
-const { express } = require('express');
+const express = require('express');
 const { users } = require('../data/users.json');
 
 const router = express.Router();
@@ -10,7 +10,7 @@ const router = express.Router();
  * Access: Public
  * Parameters: None
  */
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
     res.status(200).json({
         success: true,
         data: users
@@ -24,7 +24,7 @@ router.get("/users", (req, res) => {
  * Access: Public
  * Parameters: id
  */
-router.get("/users/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     const { id } = req.params;
     const user = users.find((each) => each.id === id);
     if (!user) {
@@ -46,7 +46,7 @@ router.get("/users/:id", (req, res) => {
  * Access: Public
  * Parameters: None
  */
-router.post("/users", (req, res) => {
+router.post("/", (req, res) => {
     const { id, name, surname, email, subscriptionType, subscriptionDate } = req.body;
     const user = users.find((each) => each.id === id);
     if (user) {
@@ -76,7 +76,7 @@ router.post("/users", (req, res) => {
  * Access: Public
  * Parameters: None
  */
-router.put("/users/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const { id } = req.params;
     const { data } = req.body;
     const user = users.find((each) => each.id === id);
@@ -108,7 +108,7 @@ router.put("/users/:id", (req, res) => {
  * Access: Public
  * Parameters: None
  */
-router.delete("/users/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const { id } = req.params;
     const user = users.find((each) => each.id === id);
     if (!user) {
