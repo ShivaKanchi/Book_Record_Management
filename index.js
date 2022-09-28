@@ -111,6 +111,33 @@ app.put("/users/:id", (req, res) => {
     });
 });
 
+/**
+ * Route : /users/:id
+ * Method: DELETE
+ * Description: Delete a user by id
+ * Access: Public
+ * Parameters: None
+ */
+app.delete("/users/id", (req, res) => {
+    const { id } = req.params;
+    const user = users.find((each) => each.id === id)
+
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            message: "User Not Found"
+        });
+    }
+    const index = users.indexOf(user);
+    users.splice(index, 1);
+
+    return res.status(200).jaon({
+        success: true,
+        data: users
+    });
+})
+
+
 
 
 app.get("*", (req, res) => {
