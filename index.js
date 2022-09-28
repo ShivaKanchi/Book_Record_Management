@@ -39,7 +39,7 @@ app.get("/users/:id", (req, res) => {
     if (!user) {
         return res.status(404).json({
             success: false,
-            message: "User not found"
+            message: "User not found by this id"
         })
     }
     return res.status(200).json({
@@ -61,7 +61,7 @@ app.post("/users", (req, res) => {
     if (user) {
         return res.status(404).json({
             success: false,
-            message: "Users exists with this id"
+            message: "Users already exists with this id"
         });
     }
     users.push({
@@ -92,12 +92,11 @@ app.put("/users/:id", (req, res) => {
     if (!user) {
         return res.status(404).json({
             success: false,
-            message: "User Not Found"
+            message: "User Not Found to update"
         });
     }
     const updateuser = users.map((each) => {
         if (each.id === id) {
-            console.log("updTWA");
             return {
                 ...each,
                 ...data
@@ -118,24 +117,22 @@ app.put("/users/:id", (req, res) => {
  * Access: Public
  * Parameters: None
  */
-app.delete("/users/id", (req, res) => {
+app.delete("/users/:id", (req, res) => {
     const { id } = req.params;
-    const user = users.find((each) => each.id === id)
-
+    const user = users.find((each) => each.id === id);
     if (!user) {
         return res.status(404).json({
             success: false,
-            message: "User Not Found"
-        });
+            message: "User not found to delete"
+        })
     }
     const index = users.indexOf(user);
     users.splice(index, 1);
-
-    return res.status(200).jaon({
+    return res.status(202).json({
         success: true,
-        data: users
+        data: users,
     });
-})
+});
 
 
 
