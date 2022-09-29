@@ -75,5 +75,36 @@ router.get("/issued/books", (req, res) => {
 
 });
 
+/**
+ * Route : /books
+ * Method: POST
+ * Description: Create new book
+ * Access: Public
+ * Parameters: id,author,name,genre,rice,publisher
+ */
+router.post("/", (req, res) => {
+    const data = req.body;
+    if (!data) {
+        return res.status(404).json({
+            success: false,
+            message: "No data provided to create book record"
+        });
+    }
+    const book = books.find((each) => { each.id === data.id })
+    if (book) {
+        return res.status(404).json({
+            success: false,
+            message: "Book id already exists"
+        });
+    }
+    const allBooks = [...books, data];
+    return res.status(201).json({
+        success: true,
+        data: allBooks
+    });
+});
+
+
+
 
 module.exports = router;
