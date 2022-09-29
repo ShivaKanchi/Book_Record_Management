@@ -34,11 +34,12 @@ router.get("/:id", (req, res) => {
     if (!book) {
         return res.status(404).json({
             success: false,
-            message: "No books found"
+            message: "No books found with that id"
         })
     }
     return res.status(200).json({
         success: true,
+        message: "One book found",
         data: book,
     });
 });
@@ -80,28 +81,68 @@ router.get("/issued/books", (req, res) => {
  * Method: POST
  * Description: Create new book
  * Access: Public
- * Parameters: id,author,name,genre,rice,publisher
+ * parameter:none
+ * Data: id,author,name,genre,rice,publisher
  */
 router.post("/", (req, res) => {
     const data = req.body;
     if (!data) {
-        return res.status(404).json({
+        return res.status(400).json({
             success: false,
-            message: "No data provided to create book record"
+            message: "No data provided to create book record",
         });
     }
-    const book = books.find((each) => { each.id === data.id })
+    console.log(data);
+    const book = books.find((each) => each.id === data.id);
     if (book) {
         return res.status(404).json({
             success: false,
             message: "Book id already exists"
         });
+    } else {
+        const allBooks = [...books, data];
+        return res.status(201).json({
+            success: true,
+            message: "One Book added",
+            data: allBooks
+        });
     }
-    const allBooks = [...books, data];
+
+});
+
+/**
+ * Route : /books/:id
+ * Method: PUT
+ * Description: Update a book
+ * Access: Public
+ * parameter:id
+ * Data: id,author,name,genre,rice,publisher
+ */
+router.put("/:id", (req, res) => {
+    console.log("Put");
+    const { id } = req.params;
+    const { data } = req.body;
+
+    const book = books.find((each) => each.id === id);
+    if (!book) {
+        return res.status(400).json({
+            success: false,
+            message: "Book with that id doesnt exist"
+        });
+    }
+    const updateData = books.map((each) => {
+        if (each.id === id) {
+            return { ...each, ...data };
+        }
+        return each;
+    })
+
     return res.status(201).json({
         success: true,
-        data: allBooks
+        message: "One Book Updated",
+        data: updateData
     });
+
 });
 
 
