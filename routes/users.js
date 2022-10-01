@@ -171,6 +171,7 @@ router.get("/subscription-details/:id", (req, res) => {
     let subscriptionDate = getDateInDays(user.subscriptionDate);
     let subscriptionExpiry = subscriptionType(subscriptionDate);
 
+    console.log(returnDate, currentDate, subscriptionDate, subscriptionExpiry);
     const data = {
         ...user,
         subscriptionExpired: subscriptionExpiry < currentDate,
