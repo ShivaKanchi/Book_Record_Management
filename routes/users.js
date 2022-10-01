@@ -125,4 +125,48 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+/**
+ * Route : /users/subscription-details/:id
+ * Method: DELETE
+ * Description: Get subscription details of user
+ * Access: Public
+ * Parameters: None
+ */
+
+router.get("/subsription-details/:id", (req, res) => {
+    const { id } = req.params;
+    const user = users.find((each) => each.id === id);
+    if (!user) {
+        res.status(404).json({
+            success: false,
+            message: "User not found"
+        })
+    }
+
+    const getDateInDays = (data = "") => {
+        let date;
+        if (data === "") {
+            date = new Date();
+        } else {
+            date = new Date(data);
+        }
+        let days = Math.floor(date / 1000 * 60 * 60 * 24);
+        return days;
+    };
+
+    const subscriptionType = (date = "") => {
+        if (user.subscriptionType === "Basic") {
+            date = data + 90;
+        } else if (user.subscriptionType === "Standard") {
+            date = data + 180;
+        } else if (user.subscriptionType === "Premium") {
+            date = data + 365;
+        }
+        return date;
+    };
+
+    ///jan 1 1976,UTC in miliseconds
+    const
+})
+
 module.exports = router;

@@ -5,7 +5,6 @@ const { users } = require('../data/users.json');
 
 const router = express.Router();
 
-
 /**
  * Route : /books
  * Method: GET
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
         data: books
     });
 })
-
 
 /**
  * Route : /books/:id
