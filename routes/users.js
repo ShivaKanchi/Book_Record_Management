@@ -133,7 +133,7 @@ router.delete("/:id", (req, res) => {
  * Parameters: None
  */
 
-router.get("/subsription-details/:id", (req, res) => {
+router.get("/subscription-details/:id", (req, res) => {
     const { id } = req.params;
     const user = users.find((each) => each.id === id);
     if (!user) {
@@ -156,17 +156,34 @@ router.get("/subsription-details/:id", (req, res) => {
 
     const subscriptionType = (date = "") => {
         if (user.subscriptionType === "Basic") {
-            date = data + 90;
+            date = date + 90;
         } else if (user.subscriptionType === "Standard") {
-            date = data + 180;
+            date = date + 180;
         } else if (user.subscriptionType === "Premium") {
-            date = data + 365;
+            date = date + 365;
         }
         return date;
     };
 
     ///jan 1 1976,UTC in miliseconds
     let returnDate = getDateInDays(user.returnDate);
+    let currentDate = getDateInDays();
+    let subscriptionDate = getDateInDays(user.subscriptionDate);
+    let subscriptionExpiry = subscriptionType(subscriptionDate);
+
+    const data = {
+        ...user,
+        subscriptionExpired: subscriptionExpiry < currentDate,
+        daysLeftForExpiry:
+            subscriptionExpiry <= currentDate ? 0 : subscriptionExpiry - currentDate,
+        fine:
+            returnDate < currentDate ? subscriptionExpiry <= currentDate ? 200 : 100 : 0,
+
+    };
+    res.status(200).json({
+        success: true,
+        data
+    });
 })
 
 module.exports = router;
