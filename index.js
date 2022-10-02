@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const dotenv = require("dotenv");
 const port = 8081; //http://localhost:8081
 //IMporting routes
 const userRoute = require('./routes/users.js');
@@ -14,6 +15,8 @@ app.get("/", (req, res) => {
         message: 'server is up'
     });
 });
+
+dotenv.config();
 app.use('/users', userRoute)
 app.use('/books', bookRoute)
 
