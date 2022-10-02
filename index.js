@@ -1,13 +1,19 @@
 const express = require('express');
-const app = express();
 const dotenv = require("dotenv");
+const DbConnection = require("./databaseconnection");
 const port = 8081; //http://localhost:8081
+
 //IMporting routes
 const userRoute = require('./routes/users.js');
 const bookRoute = require('./routes/books.js');
+
 //Data Import from data folder
 const { users } = require('./data/users.json');
 const { books } = require('./data/books.json');
+
+dotenv.config();//running environment variables
+const app = express();//using express
+DbConnection();//calling database connection function
 
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -16,13 +22,9 @@ app.get("/", (req, res) => {
     });
 });
 
-dotenv.config();
+
 app.use('/users', userRoute)
 app.use('/books', bookRoute)
-
-
-
-
 
 app.get("*", (req, res) => {
     res.status(404).json({
