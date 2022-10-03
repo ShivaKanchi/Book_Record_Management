@@ -1,4 +1,5 @@
 const express = require('express');
+const { getAllBooks, getOneBookById } = require('../controllers/book-controller');
 
 const { books } = require('../data/books.json');
 const { users } = require('../data/users.json');
@@ -12,12 +13,8 @@ const router = express.Router();
  * Access: Public
  * Parameters: None
  */
-router.get('/', (req, res) => {
-    return res.status(200).json({
-        success: true,
-        data: books
-    });
-})
+router.get('/', getAllBooks);
+
 
 /**
  * Route : /books/:id
@@ -26,21 +23,7 @@ router.get('/', (req, res) => {
  * Access: Public
  * Parameters: id
  */
-router.get("/:id", (req, res) => {
-    const { id } = req.params;
-    const book = books.find((each) => each.id === id);
-    if (!book) {
-        return res.status(404).json({
-            success: false,
-            message: "No books found with that id"
-        })
-    }
-    return res.status(200).json({
-        success: true,
-        message: "One book found",
-        data: book,
-    });
-});
+router.get("/:id", getOneBookById);
 
 /**
  * Route : /books
