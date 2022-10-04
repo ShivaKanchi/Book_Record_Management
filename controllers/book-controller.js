@@ -1,4 +1,4 @@
-const { BookModel } = require("../models/book-model");
+const { BookModel, UserModel } = require("../models/book-model");
 const issuedBook = require("../dtos/book-dto");
 
 exports.getAllBooks = async (req, res) => {
@@ -53,14 +53,14 @@ exports.getAllIssuedBooks = async (req, res) => {
 };
 
 exports.addNewBook = async (req, res) => {
-    const data = req.body;
-
+    const { data } = req.body;
     if (!data) {
         return res.status(400).json({
             success: false,
             message: "No data provided to create book record",
         });
     }
+
     await BookModel.create(data);
 
     const allBooks = await BookModel.find();
