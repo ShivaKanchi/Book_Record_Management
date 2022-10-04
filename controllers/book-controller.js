@@ -1,8 +1,6 @@
 const { BookModel } = require("../models/book-model");
 const issuedBook = require("../dtos/book-dto");
 
-
-
 exports.getAllBooks = async (req, res) => {
     const books = await BookModel.find();
     if (books.length === 0) {
