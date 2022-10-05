@@ -37,4 +37,4 @@ const userSchema = new Schema({
     timestamps: true
 })
 //Collection will have name users
-module.exports = mongoose.model("User", bookSchema);
+module.exports = mongoose.model("User", userSchema);
