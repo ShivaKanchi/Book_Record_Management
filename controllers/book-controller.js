@@ -1,5 +1,5 @@
-const { BookModel } = require("../models/book-model");
-const { UserModel } = require("../models/user-model");
+const { BookModel } = require("../models/book-model.js");
+const { UserModel } = require("../models/user-model.js");
 const issuedBook = require("../dtos/book-dto");
 
 exports.getAllBooks = async (req, res) => {
@@ -54,7 +54,9 @@ exports.getAllIssuedBooks = async (req, res) => {
 };
 
 exports.addNewBook = async (req, res) => {
+
     const { data } = req.body;
+
     if (!data) {
         return res.status(400).json({
             success: false,
@@ -62,7 +64,7 @@ exports.addNewBook = async (req, res) => {
         });
     }
 
-    await BookModel.create(data);
+    await BookModel.insertOne(data);
 
     const allBooks = await BookModel.find();
 
