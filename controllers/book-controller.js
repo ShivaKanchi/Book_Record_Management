@@ -1,11 +1,10 @@
-const { BookModel } = require("../models/book-model.js");
-const { UserModel } = require("../models/user-model.js");
+const { BookModel } = require("../models");
 const issuedBook = require("../dtos/book-dto");
 
 exports.getAllBooks = async (req, res) => {
     const books = await BookModel.find();
     if (books.length === 0) {
-        return res.status(200).json({
+        return res.status(404).json({
             success: true,
             Message: "No books found"
         });
@@ -64,7 +63,7 @@ exports.addNewBook = async (req, res) => {
         });
     }
 
-    await BookModel.insertOne(data);
+    await BookModel.create(data);
 
     const allBooks = await BookModel.find();
 

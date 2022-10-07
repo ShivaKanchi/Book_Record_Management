@@ -1,9 +1,7 @@
 const express = require('express');
-const { getAllBooks, getOneBookById, getAllIssuedBooks, addNewBook, updateBookById } = require('../controllers/book-controller');
-
 const { books } = require('../data/books.json');
 const { users } = require('../data/users.json');
-
+const { getAllBooks, getOneBookById, getAllIssuedBooks, addNewBook, updateBookById } = require('../controllers/book-controller');
 const router = express.Router();
 
 /**
@@ -14,7 +12,6 @@ const router = express.Router();
  * Parameters: None
  */
 router.get('/', getAllBooks);
-
 
 /**
  * Route : /books/:id
@@ -53,8 +50,5 @@ router.post("/", addNewBook);
  * Data: id,author,name,genre,rice,publisher
  */
 router.put("/:id", updateBookById);
-
-
-
 
 module.exports = router;
