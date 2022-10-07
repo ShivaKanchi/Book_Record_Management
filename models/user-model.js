@@ -1,4 +1,3 @@
-const { default: mongoose } = require("mongoose");
 const mongooose = require("mongoose");
 
 const Schema = mongooose.Schema;
