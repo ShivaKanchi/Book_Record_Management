@@ -17,7 +17,7 @@ exports.getAllUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
     const { id } = req.params;
     const users = await UserModel.findById(id);
-    if (users.length === 0) {
+    if (!users) {
         return res.status(404).json({
             success: false,
             message: "Users not found"
@@ -37,7 +37,7 @@ exports.deleteUser = async (req, res) => {
     return res.status(202).json({
         success: true,
         message: "Deleted a user",
-        data: users,
+        data: user,
     });
 };
 
@@ -113,7 +113,7 @@ exports.getSubscriptionDetailsById = async (req, res) => {
     let subscriptionExpiry = subscriptionType(subscriptionDate);
 
     const data = {
-        ...user,
+        ...user._doc,
         subscriptionExpired: subscriptionExpiry > currentDate,
         daysLeftForExpiry:
             subscriptionExpiry <= currentDate ? 0 : subscriptionExpiry - currentDate,

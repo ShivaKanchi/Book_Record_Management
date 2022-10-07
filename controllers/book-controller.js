@@ -1,4 +1,4 @@
-const { BookModel } = require("../models");
+const { BookModel, UserModel } = require("../models");
 const issuedBook = require("../dtos/book-dto");
 
 exports.getAllBooks = async (req, res) => {
