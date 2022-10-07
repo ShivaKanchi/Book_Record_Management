@@ -32,6 +32,25 @@ exports.getOneBookById = async (req, res) => {
     });
 };
 
+exports.getOneBookByName = async (req, res) => {
+    const { name } = req.params;
+    console.log(name);
+    const bookname = await BookModel.findOne({
+        name: name
+    });
+    if (!bookname) {
+        return res.status(404).json({
+            success: false,
+            message: "No books found with that id"
+        });
+    }
+    return res.status(200).json({
+        success: true,
+        message: "One book found",
+        data: bookname,
+    });
+};
+
 exports.getAllIssuedBooks = async (req, res) => {
     const users = await UserModel.find({
         issuedBook: { $exists: true },
